@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Libras · Tradutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🤟</div>
+    Libras Tradutor
+  </div>
+  <span class="badge">Beta · VLibras</span>
+</header>
+
+<main>
+  <!-- ── PAINEL ESQUERDO ── -->
+  <div class="panel-left">
+    <div>
+      <p class="panel-label">Texto ou voz</p>
+
+      <div class="input-wrap">
+        <textarea
+          id="input-text"
+          placeholder="Digite aqui ou use o microfone para falar..."
+          maxlength="500"
+          oninput="updateCharCount()">
+      </textarea>
+      <div id="vlibras-target"></div>
+        <div class="input-footer">
+          <span class="char-count"><span id="char-count">0</span> / 500</span>
+          <span style="font-size:12px;color:var(--ink3)">português → Libras</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-mic" id="btn-mic" onclick="toggleMic()" title="Reconhecimento de voz">
+        🎙️ Voz
+      </button>
+      <button class="btn btn-primary" id="btn-translate" onclick="translate()">
+        Traduzir →
+      </button>
+      <button class="btn btn-clear" onclick="clearAll()" title="Limpar">
+        ✕
+      </button>
+    </div>
+
+    <div class="status-strip">
+      <div class="status-dot" id="status-dot"></div>
+      <span id="status-text">Pronto para traduzir</span>
+    </div>
+
+    <div class="how-box">
+      <h3>Como usar</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>Digite uma frase em português no campo acima, ou clique em <strong>Voz</strong> para falar.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>Clique em <strong>Traduzir</strong> para ver o avatar realizando os sinais em Libras.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>O avatar animado exibe os sinais em sequência. Palavras sem sinal são soletradas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAINEL DIREITO ── -->
+  <div class="panel-right">
+    <p class="panel-label">Avatar em Libras</p>
+
+    <div class="avatar-card">
+      <div class="avatar-topbar">
+        <span class="avatar-title">Visualização · VLibras</span>
+        <span class="avatar-status" id="avatar-status">
+          <span class="status-dot" style="width:6px;height:6px"></span>
+          Aguardando
+        </span>
+      </div>
+
+      <div id="vlibras-container">
+        <!-- VLibras widget vai aqui -->
+       
+        </div>
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">🤟</div>
+          <p>
+            <strong>Avatar aguardando</strong>
+            Digite ou fale uma frase e clique em Traduzir para ver os sinais.
+          </p>
+        </div>
+      </div>
+
+        
+
+      <div class="translated-text" id="translated-text">
+        <span>Glosa (ordem Libras)</span>
+        <div class="gloss" id="gloss-output"></div>
+      </div>
+    </div>
+
+    <div class="tip-card">
+      <strong>💡 Dica</strong>
+      Libras tem gramática própria: frases curtas e diretas funcionam melhor. Ex: "eu querer água" em vez de "eu gostaria de tomar água".
+    </div>
+  </div>
+</main>
+
+<!-- VLibras -->
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script src="./script.js"></script>
+<script src="./translate.js"></script>
+
+</body>
+</html>
