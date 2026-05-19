@@ -4,20 +4,23 @@
   padding: 0;
 }
 
-:root {
-  --ink: #0d0d0f;
-  --ink2: #3a3a42;
+  :root {
+  --ink: #168FA7;
+  --ink2: #000000;
   --ink3: #8a8a96;
-  --paper: #f5f3ee;
+  --background: #F0F7FB;
   --paper2: #eceae3;
-  --accent: #1a472a;
-  --accent2: #2d7a47;
-  --accent-light: #d4edda;
+  --backgrounBtnTraducao: #0689A3;
+  --backgroundGlosa: #DCF1F9;
+  --backgroundDica: #b3e9f3;
+  --traducaoHover: #055f6e;
+  --accent-light: #a2e4f0;
   --danger: #c0392b;
   --card: #ffffff;
   --radius: 16px;
-  --shadow: 0 2px 24px rgba(0,0,0,0.07);
+  --shadow: 0 2px 24px rgba(0, 0, 0, 0.07);
 }
+
 
 body {
   font-family: 'DM Sans', sans-serif;
@@ -26,17 +29,6 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-/* ── Noise texture overlay ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: .5;
 }
 
 /* ── Header ── */
@@ -87,12 +79,9 @@ header {
 
 /* ── Main layout ── */
 main {
-  position: relative;
-  z-index: 1;
   flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
@@ -131,12 +120,9 @@ main {
   box-shadow: var(--shadow);
   overflow: hidden;
   transition: border-color .2s;
- 
 }
 
-.input-wrap:focus-within {
-  border-color: var(--accent2);
-}
+.input-wrap:focus-within { border-color: var(--accent2); }
 
 textarea {
   width: 100%;
@@ -152,9 +138,7 @@ textarea {
   background: transparent;
 }
 
-textarea::placeholder {
-  color: var(--ink3);
-}
+textarea::placeholder { color: var(--ink3); }
 
 .input-footer {
   display: flex;
@@ -165,16 +149,11 @@ textarea::placeholder {
   background: var(--paper);
 }
 
-.char-count {
-  font-size: 12px;
-  color: var(--ink3);
-}
+.char-count { font-size: 12px; color: var(--ink3); }
+.input-hint { font-size: 12px; color: var(--ink3); }
 
 /* ── Buttons ── */
-.btn-row {
-  display: flex;
-  gap: 10px;
-}
+.btn-row { display: flex; gap: 10px; }
 
 .btn {
   display: inline-flex;
@@ -191,27 +170,29 @@ textarea::placeholder {
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: var(--backgrounBtnTraducao);
   color: #fff;
   flex: 1;
   justify-content: center;
   font-size: 15px;
   padding: 14px;
 }
-
 .btn-primary:hover {
-  background: var(--accent2);
+  background: var(--traducaoHover);
   transform: translateY(-1px);
   box-shadow: 0 4px 16px rgba(26,71,42,.25);
 }
-
 .btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
-.btn-primary:disabled {
-  opacity: .5;
-  cursor: not-allowed;
-  transform: none;
+/* Impede que o VLibras injete cursor/tooltip nos nossos botões */
+.btn, button, textarea, input {
+  cursor: auto !important;
 }
+.btn-primary { cursor: pointer !important; }
+.btn-primary:disabled { cursor: not-allowed !important; }
+.btn-mic { cursor: pointer !important; }
+.btn-clear { cursor: pointer !important; }
 
 .btn-mic {
   background: var(--card);
@@ -219,12 +200,7 @@ textarea::placeholder {
   border: 1.5px solid var(--paper2);
   padding: 14px 16px;
 }
-
-.btn-mic:hover {
-  border-color: var(--accent2);
-  color: var(--accent2);
-}
-
+.btn-mic:hover { border-color: var(--accent2); color: var(--accent2); }
 .btn-mic.recording {
   background: #fff0f0;
   border-color: var(--danger);
@@ -243,11 +219,7 @@ textarea::placeholder {
   border: 1.5px solid var(--paper2);
   padding: 14px 16px;
 }
-
-.btn-clear:hover {
-  color: var(--ink);
-  border-color: var(--ink3);
-}
+.btn-clear:hover { color: var(--ink); border-color: var(--ink3); }
 
 /* ── Status strip ── */
 .status-strip {
@@ -266,16 +238,8 @@ textarea::placeholder {
   background: var(--ink3);
   flex-shrink: 0;
 }
-
-.status-dot.active {
-  background: var(--accent2);
-  animation: blink 1s step-end infinite;
-}
-
-.status-dot.error {
-  background: var(--danger);
-}
-
+.status-dot.active { background: var(--accent2); animation: blink 1s step-end infinite; }
+.status-dot.error  { background: var(--danger); }
 @keyframes blink { 50% { opacity: 0; } }
 
 /* ── How to use ── */
@@ -296,11 +260,7 @@ textarea::placeholder {
   margin-bottom: 12px;
 }
 
-.steps {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+.steps { display: flex; flex-direction: column; gap: 10px; }
 
 .step {
   display: flex;
@@ -335,7 +295,7 @@ textarea::placeholder {
   gap: 16px;
 }
 
-/* ── Avatar area ── */
+/* ── Avatar card ── */
 .avatar-card {
   background: var(--card);
   border-radius: var(--radius);
@@ -343,7 +303,6 @@ textarea::placeholder {
   box-shadow: var(--shadow);
   overflow: hidden;
   flex: 1;
-  min-height: 420px;
   display: flex;
   flex-direction: column;
 }
@@ -354,6 +313,7 @@ textarea::placeholder {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
 }
 
 .avatar-title {
@@ -372,95 +332,87 @@ textarea::placeholder {
   gap: 6px;
 }
 
-/* VLibras container */
-#vlibras-container {
+/* ── Container do avatar ── */
+.avatar-container {
   flex: 1;
+  position: relative;
+  min-height: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  min-height: 360px;
+  overflow: hidden;
+  background: #f0f4f1;
 }
 
-/* Empty state */
-.empty-state {
+/* Loading spinner */
+.loading-state {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   color: var(--ink3);
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.empty-icon {
-  width: 64px;
-  height: 64px;
-  background: var(--paper2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-}
-
-.empty-state p {
   font-size: 14px;
-  line-height: 1.6;
-  max-width: 220px;
 }
 
-.empty-state strong {
-  display: block;
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--ink2);
-  margin-bottom: 4px;
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--paper2);
+  border-top-color: var(--accent2);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
 }
 
-/* ── VLibras widget override ── */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Esconde só o botão flutuante, não o widget inteiro */
+[vw-access-button] {
+  display: none !important;
+}
+
+/* Container principal do VLibras sem bloquear a página */
 [vw] {
-  display: inline-block;
-  position: relative;
+  position: fixed !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+/* O plugin wrapper e o player preenchem o avatar-container */
+[vw-plugin-wrapper] {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: all !important;
+}
+
+.vw-plugin-top-wrapper {
   width: 100% !important;
   height: 100% !important;
 }
 
-[vw] .active {
-  position: absolute !important;
-  bottom: 0 !important;
-  right: 0 !important;
-}
+/* Impede tooltip/cursor do VLibras nos nossos elementos */
+[vw] * { cursor: default !important; }
 
-/* Translated text display */
-.translated-text {
-  background: var(--paper);
-  border-top: 1px solid var(--paper2);
-  padding: 14px 20px;
-  font-size: 13px;
-  color: var(--ink2);
-  min-height: 50px;
-  display: none;
-}
-
-.translated-text.visible { display: block; }
-
-.translated-text span {
-  color: var(--ink3);
-  font-size: 12px;
-  display: block;
-  margin-bottom: 4px;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-}
-
-.translated-text .gloss {
-  font-family: 'Syne', sans-serif;
-  font-weight: 600;
-  color: var(--accent);
+/* Texto oculto visualmente mas presente no DOM para seleção programática */
+.text-output-hidden {
+  /* position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+   overflow: hidden; 
+  pointer-events: none; 
+    */
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #333;
+  min-height: 24px;
+  border-top: 1px solid #eceae3;
+  background: #f9f9f9;
 }
 
 /* ── Tip card ── */
